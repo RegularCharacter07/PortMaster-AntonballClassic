@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gameList>
+  <game>
+    <path>./Antonball Classic.sh</path>
+    <name>Antonball Classic</name>
+    <desc>After a long night on the town, Anton's struggling to find his way back home. You'll have to help Anton out by using your balls to break the bricks!</desc>
+    <releasedate>20190826T000000</releasedate>
+    <developer>Summitsphere </developer>
+    <genre>Arcade</genre>
+    <image>./antonballclassic/cover.png</image>
+  </game>
+</gameList>
