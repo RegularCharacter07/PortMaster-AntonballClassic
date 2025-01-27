@@ -28,7 +28,7 @@ $ESUDO chmod +x -R $GAMEDIR/*
 export LD_LIBRARY_PATH="/usr/lib:$GAMEDIR/lib:$GAMEDIR/libs:$LD_LIBRARY_PATH"
 export PATCHER_FILE="$GAMEDIR/tools/patchscript"
 export PATCHER_GAME="$(basename "${0%.*}")" # This gets the current script filename without the extension
-export PATCHER_TIME="10 to 15 minutes"
+export PATCHER_TIME="5 to 10 seconds"
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
 export PATH="$TOOLDIR:$PATH"
 
