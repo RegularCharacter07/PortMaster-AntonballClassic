@@ -22,19 +22,20 @@ GAMEDIR="/$directory/ports/antonballclassic"
 # CD and set permissions
 cd $GAMEDIR
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
-$ESUDO chmod +x -R $GAMEDIR/*
+$ESUDO chmod +x $GAMEDIR/gmloadernext.aarch64
+$ESUDO chmod +x $GAMEDIR/tools/splash
+$ESUDO chmod +x $GAMEDIR/tools/swapabxy.py
 
 # Exports
-export LD_LIBRARY_PATH="/usr/lib:$GAMEDIR/lib:$GAMEDIR/libs:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/usr/lib:$GAMEDIR/lib:$LD_LIBRARY_PATH"
 export PATCHER_FILE="$GAMEDIR/tools/patchscript"
 export PATCHER_GAME="$(basename "${0%.*}")" # This gets the current script filename without the extension
 export PATCHER_TIME="5 to 10 seconds"
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
+TOOLDIR="$GAMEDIR/tools"
 export PATH="$TOOLDIR:$PATH"
 
 # dos2unix in case we need it
-dos2unix "$GAMEDIR/tools/gmKtool.py"
-dos2unix "$GAMEDIR/tools/Klib/GMblob.py"
 dos2unix "$GAMEDIR/tools/patchscript"
 
 # Check if patchlog.txt to skip patching
@@ -51,21 +52,16 @@ fi
 
 # Display loading splash
 if [ -f "$GAMEDIR/patchlog.txt" ]; then
-    [ "$CFW_NAME" == "muOS" ] && $ESUDO ./tools/splash "splash.png" 1 
-    $ESUDO ./tools/splash "splash.png" 2000 &
+    [ "$CFW_NAME" == "muOS" ] && $ESUDO splash "splash.png" 1 
+    $ESUDO splash "splash.png" 2000 &
 fi
 
 swapabxy() {
     # Update SDL_GAMECONTROLLERCONFIG to swap a/b and x/y button
 
-    if [ "$CFW_NAME" == "knulli" ] && [ -f "$SDL_GAMECONTROLLERCONFIG_FILE" ];then
-	    # Knulli seems to use SDL_GAMECONTROLLERCONFIG_FILE (on rg40xxh at least)
-        cat "$SDL_GAMECONTROLLERCONFIG_FILE" | swapabxy.py > "$GAMEDIR/gamecontrollerdb_swapped.txt"
-	    export SDL_GAMECONTROLLERCONFIG_FILE="$GAMEDIR/gamecontrollerdb_swapped.txt"
-    else
-        # Other CFW use SDL_GAMECONTROLLERCONFIG
-        export SDL_GAMECONTROLLERCONFIG="`echo "$SDL_GAMECONTROLLERCONFIG" | swapabxy.py`"
-    fi
+    cat "$SDL_GAMECONTROLLERCONFIG_FILE" | swapabxy.py > "$GAMEDIR/gamecontrollerdb_swapped.txt"
+    export SDL_GAMECONTROLLERCONFIG_FILE="$GAMEDIR/gamecontrollerdb_swapped.txt"
+    export SDL_GAMECONTROLLERCONFIG="`echo "$SDL_GAMECONTROLLERCONFIG" | swapabxy.py`"
 }
 
 # Swap a/b and x/y button if needed

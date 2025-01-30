@@ -1,2 +1,12 @@
-## Installation
-Download the game on itch.io https://summitsphere.itch.io/antonball and copy all game data to `antonballclassic/assets`.
+## Notes
+Thanks to [Summitsphere](https://summitsphere.com/) for creating this game.
+
+## Controls
+
+|Button|Action|
+|--|--|
+|dpad|movement
+|A| Jump|
+|B| Jump|
+|X| Run|
+|Y| Run|
